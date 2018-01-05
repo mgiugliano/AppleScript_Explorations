@@ -1,0 +1,34 @@
+#!/usr/bin/osascript
+
+--
+-- Prints a list of (uncompleted) reminders from 
+-- the specified list. This might be useful for
+-- creating some widget in Ubersicht.
+-- 
+-- Michele Giugliano, Jan 5th 2018
+--
+
+on run argv
+set MyList to item 1 of argv 
+		tell application "Reminders"
+				set AppleScript's text item delimiters to "\n"
+				return (name of reminders in list MyList  whose completed is false) as string 
+		end tell
+end run
+
+(*
+-- Properties that can be set/read for each task
+(from https://gist.github.com/n8henrie/c3a5bf270b8200e33591)
+
+name (text) 				: the name of the reminder
+id (text, r/o) 				: the unique identifier of the reminder
+body (text) 				: the notes attached to the reminder
+completed (boolean) 		: Is the reminder completed?
+completion date (date) 		: the completion date of the reminder
+container (list, r/o) 		: the container of the reminder
+creation date (date, r/o)	: the creation date of the reminder
+due date (date) 			: the due date of the reminder
+modification date (date, r/o): the modification date of the reminder
+remind me date (date) 		: the remind date of the reminder
+priority (integer) 			: the priority of the reminder
+*)

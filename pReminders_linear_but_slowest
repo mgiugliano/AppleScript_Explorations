@@ -1,0 +1,68 @@
+#!/usr/bin/osascript
+-- Prints a list of (uncompleted) reminders from the specified list. This might be useful for
+-- creating some widget in Ubersicht.
+--
+-- Michele Giugliano, Jan 5th 2018
+
+on run argv
+set MyList to item 1 of argv
+		tell application "Reminders"
+				do shell script ">mytodolist.txt"
+				set ListToDo to (reminders in list MyList  whose completed is false)
+				set ListDone to (reminders in list MyList  whose completed is true)
+
+				repeat with a from 1 to length of ListToDo
+					set aItem to item a of ListToDo
+					set aText to (name of aItem) as string
+					do shell script "echo - " & (quoted form of (aText)) & " >> mytodolist.txt"
+				end repeat
+
+				repeat with a from 1 to length of ListDone
+					set aItem to item a of ListDone
+					set aText to (name of aItem) as string
+				    do shell script "echo + " & (quoted form of (aText)) & " >> mytodolist.txt"
+				end repeat
+		end tell
+end run
+
+
+(*
+on run argv
+set MyList to item 1 of argv
+		tell application "Reminders"
+				set AppleScript's text item delimiters to "\n- "
+				return "- " & (name of reminders in list MyList  whose completed is false) as string &  "\n- " & (name of reminders in list MyList whose completed is true) as string
+		end tell
+end run
+*)
+
+(*
+on run argv
+set MyList to item 1 of argv
+		tell application "Reminders"
+				do shell script ">mytodolist.txt"
+				set theReminders to every reminder in list MyList whose completed is false
+				repeat with aReminder in theReminders
+						do shell script "echo [  ] " & (quoted form of (get name of aReminder)) & " >> mytodolist.txt"
+				end repeat
+		end tell
+end run
+*)
+
+
+(*
+-- Properties that can be set/read for each task
+(from https://gist.github.com/n8henrie/c3a5bf270b8200e33591)
+
+name (text) 				: the name of the reminder
+id (text, r/o) 				: the unique identifier of the reminder
+body (text) 				: the notes attached to the reminder
+completed (boolean) 		: Is the reminder completed?
+completion date (date) 		: the completion date of the reminder
+container (list, r/o) 		: the container of the reminder
+creation date (date, r/o)	: the creation date of the reminder
+due date (date) 			: the due date of the reminder
+modification date (date, r/o): the modification date of the reminder
+remind me date (date) 		: the remind date of the reminder
+priority (integer) 			: the priority of the reminder
+*)

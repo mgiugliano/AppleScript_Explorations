@@ -1,15 +1,14 @@
 #!/usr/bin/osascript
 -- Prints a list of (uncompleted) reminders from the specified list. This might be useful for
 -- creating some widget in Ubersicht.
--- 
+--
 -- Michele Giugliano, Jan 5th 2018
 
 on run argv
-set MyList to item 1 of argv 
+set MyList to item 1 of argv
 		tell application "Reminders"
 				set AppleScript's text item delimiters to "\n - "
-				return " - " & (name of reminders in list MyList  whose completed is false) as string 
-		end tell
+				return " - " & (name of reminders in list MyList  whose completed is false) as string
 end run
 
 (*

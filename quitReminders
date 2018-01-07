@@ -1,0 +1,6 @@
+#!/usr/bin/osascript
+		tell application "Reminders"
+		--delay 10 
+		quit
+		end tell
+

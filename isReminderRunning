@@ -1,0 +1,9 @@
+#!/usr/bin/osascript
+tell application "System Events"
+          set ProcessList to name of every process
+          if "Reminders" is in ProcessList then 
+                    return 1
+		  else
+				    return 0
+		end if
+end tell
